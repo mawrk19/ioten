@@ -1,0 +1,271 @@
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form .form-group {
+  margin-bottom: 15px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.login-button, .google-login-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.google-login-button {
+  background-color: #db4437;
+  color: white;
+}
+
+/* General Container */
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+/* Title Styling */
+.register-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Group */
+.register-form .form-group {
+  margin-bottom: 15px;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Input Fields Styling */
+.register-form input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Button Styling */
+.register-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Optional Google Login Button */
+.google-login-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #db4437;
+  color: white;
+}
+
+/* Styling for the Dashboard component */
+.dashboard-container {
+  font-family: 'Arial', sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f4f6f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.temperature-display {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.latest-temp {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.latest-temp span {
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+      margin: 10px;
+      padding: 10px;
+  }
+
+  .dashboard-title {
+      font-size: 1.5rem;
+  }
+
+  .temperature-display {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .latest-temp {
+      font-size: 1.2rem;
+  }
+}
+
+
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.temperature-display {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.latest-temp {
+  font-size: 1.5em;
+  color: #ff5722;
+}
+
+.chart-container {
+  margin-bottom: 40px;
+}
+
+.scan-logs {
+  margin-top: 20px;
+}
+
+.scan-logs h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.log-item {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.log-item p {
+  margin: 0;
+  font-size: 1em;
+  color: #555;
+}
+
+
+.landing-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.result-container {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.temperature {
+  font-size: 2rem;
+  color: #555;
+}
+
+.status {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.status.fever {
+  color: #e74c3c;
+}
+
+.status.normal {
+  color: #2ecc71;
+}
+
+.no-result {
+  font-size: 1.2rem;
+  color: #888;
+}
