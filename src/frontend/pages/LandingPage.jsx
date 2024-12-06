@@ -1,7 +1,7 @@
 // LandingPage.js
 
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -9,6 +9,7 @@ const LandingPage = () => {
     const [temperature, setTemperature] = useState(null);
     const [status, setStatus] = useState('');
     const location = useLocation(); // To get scan data from the URL or scan result
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Get the temperature from the URL query parameters (or passed state)
@@ -33,6 +34,10 @@ const LandingPage = () => {
         }
     };
 
+    const navigateToLogin = () => {
+        navigate('/login');
+    };
+
     return (
         <div className="landing-page-container">
             <h1 className="title">Fever Scanner Result</h1>
@@ -44,6 +49,27 @@ const LandingPage = () => {
             ) : (
                 <p className="no-result">No scan result available.</p>
             )}
+            <button 
+    className="login-button" 
+    onClick={navigateToLogin}
+    style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        padding: '5px 10px',  // Reduced padding
+        backgroundColor: '#007bff',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '12px',  // Reduced font size
+        width: 'auto',     // Adjust width if necessary
+        height: '30px'     // Set height to a smaller size
+    }}
+>
+    Go to Login Page
+</button>
+
         </div>
     );
 };
