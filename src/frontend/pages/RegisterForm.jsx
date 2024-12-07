@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup,
 import { auth } from '../firebase'; // Import auth from firebase.js
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './App.css';
+import { saveUser } from '../saveUser'; // Import saveUser function
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +22,10 @@ const RegisterPage = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await sendEmailVerification(userCredential.user);
+      
+      // Save user to Firestore
+      await saveUser({ username, email });
+
       setIsRegistered(true);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
@@ -45,6 +50,9 @@ const RegisterPage = () => {
         return;
       }
   
+      // Save user to Firestore
+      await saveUser({ username: user.displayName, email: user.email });
+
       // Proceed with app logic for signed-in user
       console.log('User signed in:', user);
 

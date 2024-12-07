@@ -1,23 +1,15 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase'; // Import Firebase auth
-import { Outlet } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../pages/AuthContext";
 
-const ProtectedRoute = () => {
-  const navigate = useNavigate();
+const ProtectedRoute = ({ children }) => {
+  const { currentUser, isLoading } = useContext(AuthContext);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && !user.emailVerified) {
-        alert('Please verify your email to access the app.');
-        navigate('/verification'); // Redirect unverified users
-      }
-    });
+  if (isLoading) {
+    return <div>Loading...</div>; // Show a loading spinner or placeholder
+  }
 
-    return () => unsubscribe();
-  }, [navigate]);
-
-  return <Outlet />; // Render child routes
+  return currentUser ? children : <Navigate to="/no-account" replace />;
 };
 
 export default ProtectedRoute;

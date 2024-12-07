@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore"; // New import
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore"; // New import
 
 // Firebase configuration
 const firebaseConfig = {
@@ -22,4 +22,22 @@ const auth = getAuth(app);
 // Initialize Firestore
 const db = getFirestore(app); // New initialization
 
-export { auth, db }; // Updated export
+// Function to register a new user
+const registerUser = async (email, password) => {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Set default role to 'staff' and save user credentials
+        await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            role: 'staff',
+            uid: user.uid,
+            createdAt: new Date()
+        });
+    } catch (error) {
+        console.error("Error registering user: ", error);
+    }
+};
+
+export { auth, db, registerUser }; // Updated export
