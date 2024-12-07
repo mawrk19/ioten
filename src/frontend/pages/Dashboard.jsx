@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { signOut } from 'firebase/auth'; // Import signOut from firebase/auth
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import Chart from 'react-apexcharts';
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase"; // Ensure 'db' is correctly exported from '../firebase'
+import { db, auth } from "../firebase"; // Ensure 'auth' is imported
 import './App.css'; // Include the CSS for styling
 
 const Dashboard = () => {
     const [tempData, setTempData] = useState([]);
     const [latestTemp, setLatestTemp] = useState(null);
     const [scanLogs, setScanLogs] = useState([]);
+    const navigate = useNavigate(); // Used for redirection
 
     // Fetch temperature data for the chart
     const fetchTemperatureData = () => {
@@ -53,9 +56,24 @@ const Dashboard = () => {
         };
     }, []);
 
+    // Logout function
+    const handleLogout = async () => {
+        try {
+            await signOut(auth); // Sign out from Firebase
+            navigate('/login'); // Redirect to login page after logout
+        } catch (error) {
+            alert("Error logging out: " + error.message); // Error handling
+        }
+    };
+
     return (
         <div className="dashboard-container">
             <h1 className="dashboard-title">Fever Scanner Dashboard</h1>
+
+            {/* Logout Button */}
+            <button className="logout-button" onClick={handleLogout}>
+                Logout
+            </button>
 
             <div className="temperature-display">
                 <h2 className="latest-temp">Latest Temperature: <span>{latestTemp}°C</span></h2>
