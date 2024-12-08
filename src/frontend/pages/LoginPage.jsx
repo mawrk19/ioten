@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, fetchSignInMethodsForEmail } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import './App.css';
@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
+      if (user) {
         navigate('/dashboard');
       }
     });
@@ -37,19 +37,11 @@ const LoginPage = () => {
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-  
-      // Check email verification status
-      if (!user.emailVerified) {
-        alert("Please verify your email before logging in.");
-        return;
-      }
-  
-      // Redirect to dashboard if email is verified
+      await signInWithEmailAndPassword(auth, email, password);
+      // Redirect to dashboard
       navigate('/dashboard');
     } catch (error) {
-      alert(error.message);
+      alert(getErrorMessage(error.code));
     }
   };
 
@@ -58,36 +50,15 @@ const LoginPage = () => {
     const provider = new GoogleAuthProvider();
     
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-  
-      // Check if the email is registered in Firebase
-      const signInMethods = await fetchSignInMethodsForEmail(auth, user.email);
-      if (signInMethods.length === 0) {
-        // If the email is not registered, navigate to NoAccountPage
-        navigate("/no-account", { replace: true });
-        setLoading(false);
-        return;  // Do not proceed further
-      }
-  
-      // If the account is registered, check if the email is verified
-      if (!user.emailVerified) {
-        alert("Please verify your email before logging in.");
-        await auth.signOut();  // Sign out the user if the email is not verified
-        setLoading(false);
-        return;  // Do not proceed further
-      }
-  
-      // If email is verified and registered, redirect to the dashboard
+      await signInWithPopup(auth, provider);
+      // Redirect to the dashboard
       navigate("/dashboard", { replace: true });
-  
     } catch (error) {
-      alert(getErrorMessage(error.code));  // Show specific error message if there's an issue
+      alert(getErrorMessage(error.code)); // Show specific error message if there's an issue
     } finally {
-      setLoading(false);  // Stop the loading state once everything is handled
+      setLoading(false); // Stop the loading state once everything is handled
     }
   };
-  
 
   return (
     <div className="login-container">

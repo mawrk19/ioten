@@ -6,9 +6,6 @@ import RegisterPage from "./frontend/pages/RegisterForm";
 import DashboardPage from "./frontend/pages/Dashboard";
 import LandingPage from "./frontend/pages/LandingPage";
 import Admin from "./frontend/pages/Admin";
-import NoAccountPage from "./frontend/pages/NoAccount";
-import ProtectedRoute from "./frontend/pages/ProtectedRoute";
-
 
 function App() {
   return (
@@ -20,15 +17,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/no-account" element={<NoAccountPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/dashboard" element={<DashboardPage />}/>
         </Routes>
       </Router>
     </AuthProvider>
