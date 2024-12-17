@@ -12,12 +12,11 @@ const Dashboard = () => {
   const [scanLogs, setScanLogs] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch temperature data
-  const fetchTemperatureData = () => {
+  useEffect(() => {
     const tempCollection = collection(db, "temperatures");
     const tempQuery = query(tempCollection, orderBy("timestamp", "desc"));
 
-    const unsubscribe = onSnapshot(tempQuery, (snapshot) => {
+    const unsubscribeTemp = onSnapshot(tempQuery, (snapshot) => {
       const data = snapshot.docs.map((doc) => doc.data());
       setTempData(data);
       if (data.length > 0) {
@@ -25,26 +24,13 @@ const Dashboard = () => {
       }
     });
 
-    return unsubscribe;
-  };
-
-  // Fetch scan logs
-  const fetchScanLogs = () => {
     const logsCollection = collection(db, "scan_logs");
     const logsQuery = query(logsCollection, orderBy("timestamp", "desc"));
 
-    const unsubscribe = onSnapshot(logsQuery, (snapshot) => {
+    const unsubscribeLogs = onSnapshot(logsQuery, (snapshot) => {
       const logs = snapshot.docs.map((doc) => doc.data());
       setScanLogs(logs);
     });
-
-    return unsubscribe;
-  };
-
-  // Fetch data on mount
-  useEffect(() => {
-    const unsubscribeTemp = fetchTemperatureData();
-    const unsubscribeLogs = fetchScanLogs();
 
     return () => {
       unsubscribeTemp();
@@ -52,11 +38,10 @@ const Dashboard = () => {
     };
   }, []);
 
-  // Logout function
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/login", { replace: true }); // Replace history to prevent back navigation
+      navigate("/login", { replace: true });
     } catch (error) {
       alert("Error logging out: " + error.message);
     }
